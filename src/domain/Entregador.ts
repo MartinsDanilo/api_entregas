@@ -3,8 +3,10 @@ import Entity from "./Entity";
 
 type TipoConta = "POUPANCA" | "CONTA_FACIL" | "CONTA_CORRENTE";
 type Status = "LIBERADO" | "PRECADASTRO" | "BLOQUEADO";
+type TipoVeiculo = "BIKE" | "MOTO";
+type CorPlaca = "CINZA" | "VERMELHA" | "PRETA";
 
-type EnderecoResidencial = {
+interface EnderecoResidencial {
     CEP: string,
     logradouro: string,
     numero: string,
@@ -14,9 +16,7 @@ type EnderecoResidencial = {
     municipioId: ObjectId,
 }
 
-type TipoVeiculo = "BIKE" | "MOTO";
-
-type CNH = {
+interface CNH {
     numero: string,
     categoria: string,
     emissao: string,
@@ -24,7 +24,7 @@ type CNH = {
     fotoCNH: string
 }
 
-type ContaBancaria = {
+interface ContaBancaria {
     bancoCodigo: string;
     bancoNome: string;
     bancoNomeTransfeera: string;
@@ -38,9 +38,7 @@ type ContaBancaria = {
     tipoConta: TipoConta;
 }
 
-type CorPlaca = "CINZA" | "VERMELHA" | "PRETA";
-
-type DocumentoVeiculo = {
+interface DocumentoVeiculo {
 	nome: string,
 	cpf: string,
 	exercicio: string,
