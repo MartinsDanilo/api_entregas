@@ -49,3 +49,49 @@ export interface IDocumentoVeiculo {
 	modelo: string,
 	corPlaca: TCorPlaca
 }
+
+export type Entregador = {
+    _id: ObjectId,
+    MunicipioId: ObjectId;
+    Codigo: string;
+    Nome: string;
+    status: TStatus;
+    cpf: string;
+    cnpj: string ;
+    dataNascimento: string;
+    enderecoResidencia: IEnderecoResidencial;
+    cnh: ICNH;
+    fotoCnh: string;
+    fotoPessoal: string;
+    tipoVeiculo: TTipoVeiculo;
+    fotoDocumentoVeiculo: string;
+    documentoVeiculo: IDocumentoVeiculo;
+    celular: string;
+    email: string;
+    senha: string;
+    contaBancaria: IContaBancaria;
+    qlBankAccountId: ObjectId;
+}
+
+export type SaveEntregadorParams = {
+    MunicipioId: ObjectId;
+    Codigo: string;
+    Nome: string;
+    status: TStatus;
+    cpf: string;
+    cnpj: string ;
+    dataNascimento: string;
+    enderecoResidencia: IEnderecoResidencial;
+    cnh: ICNH;
+    fotoCnh: string;
+    fotoPessoal: string;
+    tipoVeiculo: TTipoVeiculo;
+    fotoDocumentoVeiculo: string;
+    documentoVeiculo: IDocumentoVeiculo;
+    celular: string;
+    email: string;
+    senha: string;
+    contaBancaria: IContaBancaria;
+    qlBankAccountId: ObjectId;
+}
+

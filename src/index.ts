@@ -4,8 +4,7 @@ import Server from './server';
 import signale from 'signale';
 
 /*Teste*/
-import entregador from "./domain/Entregador"
-import Entregador from './domain/Entregador';
+import entregadorModel from "./domain/EntregadorModel"
 
 new Server()
     .setupApp()
@@ -48,7 +47,7 @@ new Server()
                 contaBancaria,
                 qlBankAccountId} = req.body;
 
-            const entregador =  Entregador.create(
+            const entregador = entregadorModel.create({
                 MunicipioId,
                 Codigo,
                 Nome,
@@ -67,7 +66,8 @@ new Server()
                 email,
                 senha,
                 contaBancaria,
-                qlBankAccountId)
+                qlBankAccountId
+            })
 
             debugger;
 
