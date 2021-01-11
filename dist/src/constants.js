@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DEFAULT_SKIP_SIZE = exports.DEFAULT_LIMIT_RESPONSE_SIZE = exports.COLLECTIONS_NAME_LOG_REQUEST = exports.TIME_TO_EXPIRES_REDIS_KEY_SECONDS = exports.PERCENTUAL_MINIMO_DESCONTO = exports.Boolean = exports.NovoCodigoPedido = exports.CodigoPedido = exports.ObjectId = exports.ENV_PROD = exports.ENV_STAGE = exports.ENV_DEV = exports.ENV_TEST = exports.PROD_ENV = void 0;
+exports.PROD_ENV = 'production';
+exports.ENV_TEST = 'test';
+exports.ENV_DEV = 'development';
+exports.ENV_STAGE = 'stage';
+exports.ENV_PROD = 'production';
+exports.ObjectId = '[a-f\\d]{24}';
+exports.CodigoPedido = '[a-z]{2}[0-9]{4}';
+exports.NovoCodigoPedido = '[a-zA-Z0-9]{6}';
+exports.Boolean = 'true|TRUE|false|FALSE';
+exports.PERCENTUAL_MINIMO_DESCONTO = 0.15;
+exports.TIME_TO_EXPIRES_REDIS_KEY_SECONDS = 60;
+exports.COLLECTIONS_NAME_LOG_REQUEST = ['CATEGORIA', 'PRODUTO'];
+exports.DEFAULT_LIMIT_RESPONSE_SIZE = 30;
+exports.DEFAULT_SKIP_SIZE = 0;
