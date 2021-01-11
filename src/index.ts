@@ -25,9 +25,10 @@ new Server()
         server.on('listening', onListing);
         server.on('error', onError);
 
-        app.post("/", (req, res)=>{
+        app.post("/entregador", (req, res)=>{
 
-            const {MunicipioId,
+            const {
+                MunicipioId,
                 Codigo,
                 Nome,
                 status,
@@ -45,7 +46,8 @@ new Server()
                 email,
                 senha,
                 contaBancaria,
-                qlBankAccountId} = req.body;
+                qlBankAccountId
+            } = req.body;
 
             const entregador = entregadorModel.create({
                 MunicipioId,
@@ -74,6 +76,10 @@ new Server()
             console.log(entregador)
             res.json(entregador)
         })
+
+        app.post("/entregador", (req, res)=>{
+            
+        }
     })
     .catch(err => {
         signale.error('Erro ao startar aplicação', err.toString());

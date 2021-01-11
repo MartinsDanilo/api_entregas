@@ -51,7 +51,7 @@ export interface IDocumentoVeiculo {
 }
 
 export type Entregador = {
-    _id: ObjectId,
+    _id: ObjectId;
     MunicipioId: ObjectId;
     Codigo: string;
     Nome: string;
@@ -73,6 +73,7 @@ export type Entregador = {
     qlBankAccountId: ObjectId;
 }
 
+//Dados que serão salvos no FrontEnd
 export type SaveEntregadorParams = {
     MunicipioId: ObjectId;
     Codigo: string;
