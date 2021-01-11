@@ -1,96 +1,55 @@
 import { ObjectId } from "mongodb";
 import Entity from "./Entity";
+import {
+    TStatus, 
+    IEnderecoResidencial, 
+    ICNH, 
+    TTipoVeiculo, 
+    IDocumentoVeiculo,
+    IContaBancaria
+} from "./EntregadorTypes"
 
-type TipoConta = "POUPANCA" | "CONTA_FACIL" | "CONTA_CORRENTE";
-type Status = "LIBERADO" | "PRECADASTRO" | "BLOQUEADO";
-type TipoVeiculo = "BIKE" | "MOTO";
-type CorPlaca = "CINZA" | "VERMELHA" | "PRETA";
-
-interface EnderecoResidencial {
-    CEP: string,
-    logradouro: string,
-    numero: string,
-    complemento: string,
-    bairro: string,
-    municipio: string,
-    municipioId: ObjectId,
-}
-
-interface CNH {
-    numero: string,
-    categoria: string,
-    emissao: string,
-    validade: string,
-    fotoCNH: string
-}
-
-interface ContaBancaria {
-    bancoCodigo: string;
-    bancoNome: string;
-    bancoNomeTransfeera: string;
-    bancoAgencia: string;
-    bancoAgenciaDigito: string;
-    numeroConta: string;
-    digitoConta: string;
-    cpfCnpjDestinatario: string;
-    nomeDestinatario: string;
-    comprovanteUrl: string;
-    tipoConta: TipoConta;
-}
-
-interface DocumentoVeiculo {
-	nome: string,
-	cpf: string,
-	exercicio: string,
-	renavam: string,
-	anoFabricacao: string,
-	anoModelo: string,
-	placa: string,
-	chassi: string,
-	modelo: string,
-	corPlaca: CorPlaca
-}
 
 class Entregador extends Entity{
     MunicipioId: ObjectId;
     Codigo: string;
     Nome: string;
-    status: Status;
+    status: TStatus;
     cpf: string;
     cnpj: string ;
     dataNascimento: string;
-    enderecoResidencia: EnderecoResidencial;
-    cnh: CNH;
+    enderecoResidencia: IEnderecoResidencial;
+    cnh: ICNH;
     fotoCnh: string;
     fotoPessoal: string;
-    tipoVeiculo: TipoVeiculo;
+    tipoVeiculo: TTipoVeiculo;
     fotoDocumentoVeiculo: string;
-    documentoVeiculo: DocumentoVeiculo;
+    documentoVeiculo: IDocumentoVeiculo;
     celular: string;
     email: string;
     senha: string;
-    contaBancaria: ContaBancaria;
+    contaBancaria: IContaBancaria;
     qlBankAccountId: ObjectId;
 
     static create(
         MunicipioId: ObjectId,
         Codigo: string,
         Nome: string,
-        status: Status,
+        status: TStatus,
         cpf: string,
         cnpj: string,
         dataNascimento: string,
-        enderecoResidencia: EnderecoResidencial,
-        cnh: CNH,
+        enderecoResidencia: IEnderecoResidencial,
+        cnh: ICNH,
         fotoCnh: string,
         fotoPessoal: string,
-        tipoVeiculo: TipoVeiculo,
+        tipoVeiculo: TTipoVeiculo,
         fotoDocumentoVeiculo: string,
-        documentoVeiculo: DocumentoVeiculo,
+        documentoVeiculo: IDocumentoVeiculo,
         celular: string,
         email: string,
         senha: string,
-        contaBancaria: ContaBancaria,
+        contaBancaria: IContaBancaria,
         qlBankAccountId: ObjectId,
     ): Entregador {
 
