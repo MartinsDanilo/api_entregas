@@ -4,7 +4,9 @@ import Server from './server';
 import signale from 'signale';
 
 /*Teste*/
-import entregadorModel from "./domain/EntregadorModel"
+import EntregadorModel from "./domain/EntregadorModel"
+import EntregaModel from "./domain/EntregaModel";
+import Estabelecimento from "./domain/EstabelecimentoModel"
 
 new Server()
     .setupApp()
@@ -49,7 +51,7 @@ new Server()
                 qlBankAccountId
             } = req.body;
 
-            const entregador = entregadorModel.create({
+            const entregador = EntregadorModel.create({
                 MunicipioId,
                 Codigo,
                 Nome,
@@ -76,11 +78,95 @@ new Server()
             console.log(entregador)
             res.json(entregador)
         })
+        app.post("/entrega", (req, res) => {
+            const {
+                EnderecoOrigem,
+                LatLongOrigem,
+                EnderecoDestino,
+                LatLongDestino,
+                RotaDistancia,
+                DistanciaEntregadorEstabelecimentoRadial,
+                EstabelecimentoId,
+                entregadorId,
+                aceiteAt,
+                solicitadoAt,
+                chegouLojaAt,
+                associadoAt,
+                saindoLojaAt,
+                saiuLojaAt,
+                chegouClienteAt,
+                FinalizadoAt,
+                valorEntrega,
+            } = req.body;
 
-        app.post("/entregador", (req, res)=>{
-            
-        }
-    })
+            const entrega = new EntregaModel(
+                EnderecoOrigem,
+                LatLongOrigem,
+                EnderecoDestino,
+                LatLongDestino,
+                RotaDistancia,
+                DistanciaEntregadorEstabelecimentoRadial,
+                EstabelecimentoId,
+                entregadorId,
+                aceiteAt,
+                solicitadoAt,
+                chegouLojaAt,
+                associadoAt,
+                saindoLojaAt,
+                saiuLojaAt,
+                chegouClienteAt,
+                FinalizadoAt,
+                valorEntrega,
+            )
+            console.log(entrega)
+            res.json(entrega)
+        }) 
+        app.post("/estabelecimento", (req, res) => {
+            const {
+                nomeExibicao,
+                cnpj,
+                cpf,
+                endereco,
+                enderecosRetirada,
+                localizacao,
+                municipioId,
+                valorEntregaBase,
+                valorKmAdicional,
+                entregaBaseMts,
+                requiredNearPlaceToConfirmStartRide,
+                requiredNearClientToConfirm,
+                requiredNearplaceToConfirmReturnRide,
+                needCheckToConfirmReturnRide,
+                qtdMaxEntregaGroup,
+                maxDistanceDropsToGroup,
+                qlBankAccountId,
+            } = req.body;
+
+            const estabelecimento = Estabelecimento.Create({
+                nomeExibicao,
+                cnpj,
+                cpf,
+                endereco,
+                enderecosRetirada,
+                localizacao,
+                municipioId,
+                valorEntregaBase,
+                valorKmAdicional,
+                entregaBaseMts,
+                requiredNearPlaceToConfirmStartRide,
+                requiredNearClientToConfirm,
+                requiredNearplaceToConfirmReturnRide,
+                needCheckToConfirmReturnRide,
+                qtdMaxEntregaGroup,
+                maxDistanceDropsToGroup,
+                qlBankAccountId
+            })
+
+            return res.send(estabelecimento)
+
+        })       
+    }    
+    )
     .catch(err => {
         signale.error('Erro ao startar aplicação', err.toString());
     });
