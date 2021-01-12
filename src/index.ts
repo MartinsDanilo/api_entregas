@@ -7,8 +7,8 @@ import signale from 'signale';
 import EntregadorModel from "./domain/EntregadorModel";
 import EntregaModel from "./domain/EntregaModel";
 import Estabelecimento from "./domain/EstabelecimentoModel";
-import Municipio from "./domain/MunicipioModel";
 import MunicipioModel from './domain/MunicipioModel';
+import CorridaModel from "./domain/CorridaModel";
 
 
 new Server()
@@ -204,6 +204,27 @@ new Server()
 
             return res.send(municipio);
         })
+
+        app.post("/corrida", (req, res) => {
+            const {
+                entregadorId,
+                estabelecimentoIds,
+                entregaIds,
+                statusCorrida,
+                municipioId
+            } = req.body;
+
+            const corrida = CorridaModel.Create({
+                entregadorId,
+                estabelecimentoIds,
+                entregaIds,
+                statusCorrida,
+                municipioId
+            })        
+
+            return res.send(corrida);
+        })        
+        
     }    
     )
     .catch(err => {
