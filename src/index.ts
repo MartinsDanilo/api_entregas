@@ -9,6 +9,7 @@ import EntregaModel from "./domain/EntregaModel";
 import Estabelecimento from "./domain/EstabelecimentoModel";
 import MunicipioModel from './domain/MunicipioModel';
 import CorridaModel from "./domain/CorridaModel";
+import ManagerModel from "./domain/ManagerModel";
 
 
 new Server()
@@ -224,6 +225,24 @@ new Server()
 
             return res.send(corrida);
         })        
+
+        app.post("/manager", (req, res) => {
+            const {
+                email,
+                nome,
+                senha,
+                celular
+            } = req.body;
+
+            const manager = ManagerModel.Create({
+                email,
+                nome,
+                senha,
+                celular
+            });
+
+            return res.send(manager)
+        })
         
     }    
     )

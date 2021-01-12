@@ -66,7 +66,6 @@ class EntregaModel extends Entity implements Entrega {
             valorEntrega,
         );
 
-
         return entrega;
     }
 }
