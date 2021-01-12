@@ -4,9 +4,12 @@ import Server from './server';
 import signale from 'signale';
 
 /*Teste*/
-import EntregadorModel from "./domain/EntregadorModel"
+import EntregadorModel from "./domain/EntregadorModel";
 import EntregaModel from "./domain/EntregaModel";
-import Estabelecimento from "./domain/EstabelecimentoModel"
+import Estabelecimento from "./domain/EstabelecimentoModel";
+import Municipio from "./domain/MunicipioModel";
+import MunicipioModel from './domain/MunicipioModel';
+
 
 new Server()
     .setupApp()
@@ -164,7 +167,43 @@ new Server()
 
             return res.send(estabelecimento)
 
-        })       
+        })
+        
+        app.post("/municipio", (req, res) => {
+            const {
+                nome,
+                UF,
+                localizacao,
+                valorEntregaBase,
+                valorKmAdicional,
+                entregaBaseMts,
+                raioMaxDistance,
+                requiredNearPlaceToConfirmStartRide,
+                requiredNearClientToConfirm,
+                requiredNearplaceToConfirmReturnRide,
+                needCheckToConfirmReturnRide,
+                qtdMaxEntregaGroup,
+                maxDistanceDropsToGroup
+            } = req.body;
+
+            const municipio = MunicipioModel.Create({
+                nome,
+                UF,
+                localizacao,
+                valorEntregaBase,
+                valorKmAdicional,
+                entregaBaseMts,
+                raioMaxDistance,
+                requiredNearPlaceToConfirmStartRide,
+                requiredNearClientToConfirm,
+                requiredNearplaceToConfirmReturnRide,
+                needCheckToConfirmReturnRide,
+                qtdMaxEntregaGroup,
+                maxDistanceDropsToGroup
+            })
+
+            return res.send(municipio);
+        })
     }    
     )
     .catch(err => {
