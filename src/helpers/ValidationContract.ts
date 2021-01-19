@@ -301,7 +301,18 @@ class ValidationContract {
 
             return this;
         }
+    }    
+    isCpf(cpf: string, msg: string = 'CPF inválido.'): ValidationContract {
+        if (!FnValidacoes.cpf(cpf)) this.addError(msg);
+        return this;
     }
+
+    isEmail(email: string, msg: string = 'e-mail inválido.'): ValidationContract {
+        if (!FnValidacoes.email(email)) this.addError(msg);
+        return this;
+    }
+
+    
 }
 
 export default ValidationContract;

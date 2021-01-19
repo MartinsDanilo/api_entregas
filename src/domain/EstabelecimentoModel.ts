@@ -1,72 +1,89 @@
+import ValidationBuilder from '../helpers/ValidationBuilder';
 import { ObjectId } from "mongodb"
 import Entity from "./Entity";
-import {Estabelecimento, ILocalizacao, SaveEstabelecimentoParams} from "./EstabelecimentoTypes"
+import {IEstabelecimento, ISaveEstabelecimentoParams} from "./EstabelecimentoTypes"
+import { ILocalizacao, IEndereco } from './CommonTypes';
 
-class EstabelecimentoModel extends Entity implements Estabelecimento  {
+class IEstabelecimentoModel extends Entity implements IEstabelecimento  {
     constructor(
         public nomeExibicao: string,
         public cnpj: string,
         public cpf:string,
-        public endereco: string,
-        public enderecosRetirada: string[],
+        public endereco: IEndereco,        
         public localizacao: ILocalizacao,
         public municipioId: ObjectId,
-        public valorEntregaBase: number,
-        public valorKmAdicional: number,
-        public entregaBaseMts: number,
-        public requiredNearPlaceToConfirmStartRide: boolean,
-        public requiredNearClientToConfirm: boolean,
-        public requiredNearplaceToConfirmReturnRide: boolean,
-        public needCheckToConfirmReturnRide: boolean,
-        public qtdMaxEntregaGroup: number,
-        public maxDistanceDropsToGroup: number,
-        public qlBankAccountId: ObjectId,
+        public enderecosRetirada?: IEndereco[],
+        public valorEntregaBase?: number,
+        public valorKmAdicional?: number,
+        public entregaBaseMts?: number,
+        public requiredNearPlaceToConfirmStartRide?: boolean,
+        public requiredNearClientToConfirm?: boolean,
+        public requiredNearplaceToConfirmReturnRide?: boolean,
+        public needCheckToConfirmReturnRide?: boolean,
+        public qtdMaxEntregaGroup?: number,
+        public maxDistanceDropsToGroup?: number,
+        public qlBankAccountId?: ObjectId,
     ){
         super()
+    }
+
+    validateEndereco(endereco: IEndereco) {
+        this.validator.setValidations([
+            ValidationBuilder.field(endereco.bairro, "Bairro").isRequired(),
+            ValidationBuilder.field(endereco.logradouro, "Logradouro").isRequired(),
+            ValidationBuilder.field(endereco.numero, "Número").isRequired(),
+            ValidationBuilder.field(endereco.municipioId, "MunicipioId").isRequired(),
+            ValidationBuilder.field(endereco.cep, "CEP").isRequired(),
+            ValidationBuilder.field(endereco.referencia, "Referência").isRequired(),            
+        ])
+    }    
+
+    validateLocalizacao(localizacao: ILocalizacao){
+        this.validator.setValidations([
+            ValidationBuilder.field(localizacao.latitude, "Latitude").isRequired(),
+            ValidationBuilder.field(localizacao.longitude, "Longitude").isRequired()
+        ])
+    }
+
+    validate(): boolean {
+        this.validator.clear();
+
+        this.validateEndereco(this.endereco);         
+        this.validateLocalizacao(this.localizacao);      
+
+
+        this.validator.setValidations([
+            ValidationBuilder.field(this.nomeExibicao, "Nome Exibição").isRequired(),
+            //Precisa verificar se o cpf ou cnpj eh valido
+            ValidationBuilder.field(this.cpf, "CPF", this.cnpj, "CNPJ").oneOrOtherIsRequired(),
+            ValidationBuilder.field(this.municipioId, "municipioId").isRequired(),                      
+        ])
+
+        return this.validator.isValid();
     }
 
     static Create({
         nomeExibicao,
         cnpj,
         cpf,
-        endereco,
-        enderecosRetirada,
+        endereco,        
         localizacao,
         municipioId,
-        valorEntregaBase,
-        valorKmAdicional,
-        entregaBaseMts,
-        requiredNearPlaceToConfirmStartRide,
-        requiredNearClientToConfirm,
-        requiredNearplaceToConfirmReturnRide,
-        needCheckToConfirmReturnRide,
-        qtdMaxEntregaGroup,
-        maxDistanceDropsToGroup,
-        qlBankAccountId,
-    }: SaveEstabelecimentoParams): Estabelecimento {
+    }: ISaveEstabelecimentoParams): IEstabelecimento {
 
-        const estabelecimento = new EstabelecimentoModel(
+        const estabelecimento = new IEstabelecimentoModel(
             nomeExibicao,
             cnpj,
             cpf,
-            endereco,
-            enderecosRetirada,
-            localizacao,
-            municipioId,
-            valorEntregaBase,
-            valorKmAdicional,
-            entregaBaseMts,
-            requiredNearPlaceToConfirmStartRide,
-            requiredNearClientToConfirm,
-            requiredNearplaceToConfirmReturnRide,
-            needCheckToConfirmReturnRide,
-            qtdMaxEntregaGroup,
-            maxDistanceDropsToGroup,
-            qlBankAccountId,
+            endereco as IEndereco,            
+            localizacao as ILocalizacao,
+            new ObjectId(municipioId),
         );
+
+        estabelecimento.validate();
 
         return estabelecimento;
     }    
 }
 
-export default EstabelecimentoModel;
+export default IEstabelecimentoModel;

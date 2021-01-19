@@ -1,86 +1,80 @@
+import ValidationBuilder from '../helpers/ValidationBuilder';
 import { ObjectId } from "mongodb";
 import Entity from "./Entity";
 import {
-    TStatus, 
-    IEnderecoResidencial, 
+    TStatus,  
     ICNH, 
     TTipoVeiculo, 
     IDocumentoVeiculo,
     IContaBancaria,
-    Entregador,
-    SaveEntregadorParams
+    IEntregador,
+    ISaveEntregadorParams
 
 } from "./EntregadorTypes"
+import { IEndereco } from './CommonTypes';
+import { isEmpty } from 'lodash';
 
 
-class EntregadorModel extends Entity implements Entregador {
-    constructor(
-        public MunicipioId: ObjectId,
-        public Codigo: string,
-        public Nome: string,
-        public status: TStatus,
-        public cpf: string,
-        public cnpj: string,
-        public dataNascimento: string,
-        public enderecoResidencia: IEnderecoResidencial,
-        public cnh: ICNH,
-        public fotoCnh: string,
-        public fotoPessoal: string,
-        public tipoVeiculo: TTipoVeiculo,
-        public fotoDocumentoVeiculo: string,
-        public documentoVeiculo: IDocumentoVeiculo,
+class EntregadorModel extends Entity implements IEntregador {
+    constructor(               
+        public nome: string,        
+        public cpf: string,              
         public celular: string,
         public email: string,
         public senha: string,
-        public contaBancaria: IContaBancaria,
-        public qlBankAccountId: ObjectId,
+        public municipioId?: ObjectId, 
+        public fotoCnh?: string,
+        public fotoPessoal?: string,
+        public tipoVeiculo?: TTipoVeiculo,
+        public fotoDocumentoVeiculo?: string,
+        public documentoVeiculo?: IDocumentoVeiculo,
+        public cnpj?: string,
+        public dataNascimento?: string,
+        public enderecoResidencia?: IEndereco,
+        public cnh?: ICNH,
+        public status?: TStatus,
+        public codigo?: string,
+        public contaBancaria?: IContaBancaria,
+        public qlBankAccountId?: ObjectId,
     ){
         super()
     }
+    validate(): boolean {
+        this.validator.clear()
+
+        this.validator.setValidations([
+            ValidationBuilder.field(this.nome, "Nome Completo").isRequired(),
+            ValidationBuilder.field(this.email, "E-mail").isRequired().isEmail(),
+            ValidationBuilder.field(this.cpf, "CPF").isRequired().isCPF(),                     
+            ValidationBuilder.field(this.celular, "Telefone").isRequired(),
+            ValidationBuilder.field(this.municipioId, "municipioId").isRequired(),
+            ValidationBuilder.field(this.senha, "Senha").min(3).isRequired(),          
+        ])
+
+        return this.validator.isValid();
+    }
 
     static create({
-        MunicipioId,
-        Codigo,
-        Nome,
-        status,
+        municipioId,        
+        nome,        
         cpf,
-        cnpj,
-        dataNascimento,
-        enderecoResidencia,
-        cnh,
-        fotoCnh,
-        fotoPessoal,
-        tipoVeiculo,
-        fotoDocumentoVeiculo,
-        documentoVeiculo,
         celular,
         email,
-        senha,
-        contaBancaria,
-        qlBankAccountId,
-    }: SaveEntregadorParams): Entregador | string[] {
+        senha,        
+    }: ISaveEntregadorParams): IEntregador | string[] {
 
-        const entregador = new EntregadorModel(
-            MunicipioId,
-            Codigo,
-            Nome,
-            status,
+        const entregador = new EntregadorModel(            
+            nome,        
             cpf,
-            cnpj,
-            dataNascimento,
-            enderecoResidencia,
-            cnh,
-            fotoCnh,
-            fotoPessoal,
-            tipoVeiculo,
-            fotoDocumentoVeiculo,
-            documentoVeiculo,
             celular,
             email,
             senha,
-            contaBancaria,
-            qlBankAccountId
-        );        
+            !isEmpty(municipioId) ? new ObjectId(municipioId) : undefined
+        );       
+        
+        debugger
+
+        entregador.validate();
 
         return entregador;
     }

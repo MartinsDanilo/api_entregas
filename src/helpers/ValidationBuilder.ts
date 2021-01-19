@@ -58,4 +58,14 @@ export default class ValidationBuilder {
         this.validation.max(this.value, max, this.message);
         return this;
     }
+        
+    isCPF(): ValidationBuilder {
+        this.validation.isCpf(this.value, this.message);
+        return this;
+    }
+
+    isEmail(): ValidationBuilder {
+        this.validation.isEmail(this.value, this.message)
+        return this;
+    }
 }

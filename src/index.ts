@@ -34,9 +34,9 @@ new Server()
         app.post("/entregador", (req, res)=>{
 
             const {
-                MunicipioId,
-                Codigo,
-                Nome,
+                municipioId,
+                codigo,
+                nome,
                 status,
                 cpf,
                 cnpj,
@@ -56,9 +56,9 @@ new Server()
             } = req.body;
 
             const entregador = EntregadorModel.create({
-                MunicipioId,
-                Codigo,
-                Nome,
+                municipioId,
+                codigo,
+                nome,
                 status,
                 cpf,
                 cnpj,
@@ -83,45 +83,40 @@ new Server()
             res.json(entregador)
         })
         app.post("/entrega", (req, res) => {
+            debugger
             const {
-                EnderecoOrigem,
-                LatLongOrigem,
-                EnderecoDestino,
-                LatLongDestino,
-                RotaDistancia,
-                DistanciaEntregadorEstabelecimentoRadial,
-                EstabelecimentoId,
-                entregadorId,
-                aceiteAt,
-                solicitadoAt,
-                chegouLojaAt,
-                associadoAt,
-                saindoLojaAt,
-                saiuLojaAt,
-                chegouClienteAt,
-                FinalizadoAt,
+                enderecoOrigem,
+                localizacaoOrigem,
+                enderecoDestino,
+                localizacaoDestino,
                 valorEntrega,
+                rotaDistancia,
+                estabelecimentoId,
+                formaPagamento,
+                nomeDestinatario,
+                telefoneDestinatario,
+                status,
+                valorEntregador,
+                solicitadoAt,
             } = req.body;
 
-            const entrega = new EntregaModel(
-                EnderecoOrigem,
-                LatLongOrigem,
-                EnderecoDestino,
-                LatLongDestino,
-                RotaDistancia,
-                DistanciaEntregadorEstabelecimentoRadial,
-                EstabelecimentoId,
-                entregadorId,
-                aceiteAt,
-                solicitadoAt,
-                chegouLojaAt,
-                associadoAt,
-                saindoLojaAt,
-                saiuLojaAt,
-                chegouClienteAt,
-                FinalizadoAt,
+            debugger
+
+            const entrega = EntregaModel.Create({
+                enderecoOrigem,
+                localizacaoOrigem,
+                enderecoDestino,
+                localizacaoDestino,
                 valorEntrega,
-            )
+                rotaDistancia,
+                estabelecimentoId,
+                formaPagamento,
+                nomeDestinatario,
+                telefoneDestinatario,
+                status,
+                valorEntregador,
+                solicitadoAt,
+            })
             console.log(entrega)
             res.json(entrega)
         }) 
@@ -130,42 +125,21 @@ new Server()
                 nomeExibicao,
                 cnpj,
                 cpf,
-                endereco,
-                enderecosRetirada,
+                endereco,                
                 localizacao,
                 municipioId,
-                valorEntregaBase,
-                valorKmAdicional,
-                entregaBaseMts,
-                requiredNearPlaceToConfirmStartRide,
-                requiredNearClientToConfirm,
-                requiredNearplaceToConfirmReturnRide,
-                needCheckToConfirmReturnRide,
-                qtdMaxEntregaGroup,
-                maxDistanceDropsToGroup,
-                qlBankAccountId,
             } = req.body;
 
             const estabelecimento = Estabelecimento.Create({
                 nomeExibicao,
                 cnpj,
                 cpf,
-                endereco,
-                enderecosRetirada,
+                endereco,                
                 localizacao,
-                municipioId,
-                valorEntregaBase,
-                valorKmAdicional,
-                entregaBaseMts,
-                requiredNearPlaceToConfirmStartRide,
-                requiredNearClientToConfirm,
-                requiredNearplaceToConfirmReturnRide,
-                needCheckToConfirmReturnRide,
-                qtdMaxEntregaGroup,
-                maxDistanceDropsToGroup,
-                qlBankAccountId
+                municipioId
             })
 
+            console.log(estabelecimento)
             return res.send(estabelecimento)
 
         })
@@ -175,32 +149,20 @@ new Server()
                 nome,
                 UF,
                 localizacao,
-                valorEntregaBase,
-                valorKmAdicional,
                 entregaBaseMts,
                 raioMaxDistance,
-                requiredNearPlaceToConfirmStartRide,
-                requiredNearClientToConfirm,
-                requiredNearplaceToConfirmReturnRide,
-                needCheckToConfirmReturnRide,
-                qtdMaxEntregaGroup,
-                maxDistanceDropsToGroup
+                valorKmAdicional,
+                valorEntregaBase
             } = req.body;
 
             const municipio = MunicipioModel.Create({
                 nome,
                 UF,
                 localizacao,
-                valorEntregaBase,
-                valorKmAdicional,
                 entregaBaseMts,
                 raioMaxDistance,
-                requiredNearPlaceToConfirmStartRide,
-                requiredNearClientToConfirm,
-                requiredNearplaceToConfirmReturnRide,
-                needCheckToConfirmReturnRide,
-                qtdMaxEntregaGroup,
-                maxDistanceDropsToGroup
+                valorKmAdicional,
+                valorEntregaBase
             })
 
             return res.send(municipio);

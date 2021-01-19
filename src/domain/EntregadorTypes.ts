@@ -1,19 +1,10 @@
 import { ObjectId } from "mongodb";
+import { IEndereco } from './CommonTypes';
 
 export type TTipoConta = "POUPANCA" | "CONTA_FACIL" | "CONTA_CORRENTE";
 export type TStatus = "LIBERADO" | "PRECADASTRO" | "BLOQUEADO";
 export type TTipoVeiculo = "BIKE" | "MOTO";
 export type TCorPlaca = "CINZA" | "VERMELHA" | "PRETA";
-
-export interface IEnderecoResidencial {
-    CEP: string,
-    logradouro: string,
-    numero: string,
-    complemento: string,
-    bairro: string,
-    municipio: string,
-    municipioId: ObjectId,
-}
 
 export interface ICNH {
     numero: string,
@@ -50,49 +41,48 @@ export interface IDocumentoVeiculo {
 	corPlaca: TCorPlaca
 }
 
-export type Entregador = {
-    _id: ObjectId;
-    MunicipioId: ObjectId;
-    Codigo: string;
-    Nome: string;
-    status: TStatus;
+export interface IEntregador {
+    _id?: ObjectId;
+    municipioId?: ObjectId;
+    codigo?: string;
+    nome: string;
+    status?: TStatus;
     cpf: string;
-    cnpj: string ;
-    dataNascimento: string;
-    enderecoResidencia: IEnderecoResidencial;
-    cnh: ICNH;
-    fotoCnh: string;
-    fotoPessoal: string;
-    tipoVeiculo: TTipoVeiculo;
-    fotoDocumentoVeiculo: string;
-    documentoVeiculo: IDocumentoVeiculo;
+    cnpj?: string ;
+    dataNascimento?: string;
+    enderecoResidencia?: IEndereco;
+    cnh?: ICNH;
+    fotoCnh?: string;
+    fotoPessoal?: string;
+    tipoVeiculo?: TTipoVeiculo;
+    fotoDocumentoVeiculo?: string;
+    documentoVeiculo?: IDocumentoVeiculo;
     celular: string;
     email: string;
     senha: string;
-    contaBancaria: IContaBancaria;
-    qlBankAccountId: ObjectId;
+    contaBancaria?: IContaBancaria;
+    qlBankAccountId?: ObjectId;
 }
 
-//Dados que serão salvos no FrontEnd
-export type SaveEntregadorParams = {
-    MunicipioId: ObjectId;
-    Codigo: string;
-    Nome: string;
-    status: TStatus;
+export interface ISaveEntregadorParams {    
+    municipioId?: string;
+    codigo?: string;
+    nome: string;
+    status?: TStatus;
     cpf: string;
-    cnpj: string ;
-    dataNascimento: string;
-    enderecoResidencia: IEnderecoResidencial;
-    cnh: ICNH;
-    fotoCnh: string;
-    fotoPessoal: string;
-    tipoVeiculo: TTipoVeiculo;
-    fotoDocumentoVeiculo: string;
-    documentoVeiculo: IDocumentoVeiculo;
+    cnpj?: string ;
+    dataNascimento?: string;
+    enderecoResidencia?: IEndereco;
+    cnh?: ICNH;
+    fotoCnh?: string;
+    fotoPessoal?: string;
+    tipoVeiculo?: TTipoVeiculo;
+    fotoDocumentoVeiculo?: string;
+    documentoVeiculo?: IDocumentoVeiculo;
     celular: string;
     email: string;
     senha: string;
-    contaBancaria: IContaBancaria;
-    qlBankAccountId: ObjectId;
+    contaBancaria?: IContaBancaria;
+    qlBankAccountId?: string;
 }
 

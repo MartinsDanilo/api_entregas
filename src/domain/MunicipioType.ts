@@ -1,39 +1,35 @@
 import { ObjectId } from "mongodb";
-
-export interface ILocalizacao {
-    latitude: string;
-    longitude: string;
-}
+import {ILocalizacao} from "./CommonTypes"
 
 export interface IMunicipio {
-    _id: ObjectId;
+    _id?: ObjectId;
     nome: string;
     UF: string;
     localizacao: ILocalizacao;
-    valorEntregaBase: number;
-    valorKmAdicional: number;
-    entregaBaseMts: number;
-    raioMaxDistance: number;
-    requiredNearPlaceToConfirmStartRide: boolean;
-    requiredNearClientToConfirm: boolean;
-    requiredNearplaceToConfirmReturnRide: boolean;
-    needCheckToConfirmReturnRide: boolean;
-    qtdMaxEntregaGroup: number;
-    maxDistanceDropsToGroup: number;
+    valorEntregaBase?: number;
+    valorKmAdicional?: number;
+    entregaBaseMts?: number;
+    raioMaxDistance?: number;
+    requiredNearPlaceToConfirmStartRide?: boolean;
+    requiredNearClientToConfirm?: boolean;
+    requiredNearplaceToConfirmReturnRide?: boolean;
+    needCheckToConfirmReturnRide?: boolean;
+    qtdMaxEntregaGroup?: number;
+    maxDistanceDropsToGroup?: number;
 }
 
-export interface ISaveMunicipio {
+export interface ISaveMunicipioParams {
     nome: string;
     UF: string;
     localizacao: ILocalizacao;
-    valorEntregaBase: number;
-    valorKmAdicional: number;
-    entregaBaseMts: number;
-    raioMaxDistance: number;
-    requiredNearPlaceToConfirmStartRide: boolean;
-    requiredNearClientToConfirm: boolean;
-    requiredNearplaceToConfirmReturnRide: boolean;
-    needCheckToConfirmReturnRide: boolean;
-    qtdMaxEntregaGroup: number;
-    maxDistanceDropsToGroup: number;
+    valorEntregaBase: string;
+    valorKmAdicional: string;
+    entregaBaseMts: string;
+    raioMaxDistance: string;
+    requiredNearPlaceToConfirmStartRide?: boolean;
+    requiredNearClientToConfirm?: boolean;
+    requiredNearplaceToConfirmReturnRide?: boolean;
+    needCheckToConfirmReturnRide?: boolean;
+    qtdMaxEntregaGroup?: string;
+    maxDistanceDropsToGroup?: string;
 }

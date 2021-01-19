@@ -1,47 +1,43 @@
 import { ObjectId } from "mongodb";
+import {ILocalizacao, IEndereco} from "./CommonTypes";
 
-export interface ILocalizacao {
-    latitude: string;
-    longitude: string;
-}
-
-export type Estabelecimento = {
-    _id: ObjectId;
+export interface IEstabelecimento {
+    _id?: ObjectId;
     nomeExibicao: string;
     cnpj: string;
     cpf:string;
-    endereco: string;
-    enderecosRetirada: string[];
+    endereco: IEndereco;    
     localizacao: ILocalizacao;
     municipioId: ObjectId;
-    valorEntregaBase: number;
-    valorKmAdicional: number;
-    entregaBaseMts: number;
-    requiredNearPlaceToConfirmStartRide: boolean;
-    requiredNearClientToConfirm: boolean;
-    requiredNearplaceToConfirmReturnRide: boolean;
-    needCheckToConfirmReturnRide: boolean;
-    qtdMaxEntregaGroup: number;
-    maxDistanceDropsToGroup: number;
-    qlBankAccountId: ObjectId;
+    enderecosRetirada?: IEndereco[];
+    valorEntregaBase?: number;
+    valorKmAdicional?: number;
+    entregaBaseMts?: number;
+    requiredNearPlaceToConfirmStartRide?: boolean;
+    requiredNearClientToConfirm?: boolean;
+    requiredNearplaceToConfirmReturnRide?: boolean;
+    needCheckToConfirmReturnRide?: boolean;
+    qtdMaxEntregaGroup?: number;
+    maxDistanceDropsToGroup?: number;
+    qlBankAccountId?: ObjectId;
 }
 
-export type SaveEstabelecimentoParams = {
+export interface ISaveEstabelecimentoParams {
     nomeExibicao: string;
     cnpj: string;
-    cpf:string;
-    endereco: string;
-    enderecosRetirada: string[];
+    cpf: string;
+    endereco: IEndereco;    
     localizacao: ILocalizacao;
     municipioId: ObjectId;
-    valorEntregaBase: number;
-    valorKmAdicional: number;
-    entregaBaseMts: number;
-    requiredNearPlaceToConfirmStartRide: boolean;
-    requiredNearClientToConfirm: boolean;
-    requiredNearplaceToConfirmReturnRide: boolean;
-    needCheckToConfirmReturnRide: boolean;
-    qtdMaxEntregaGroup: number;
-    maxDistanceDropsToGroup: number;
-    qlBankAccountId: ObjectId;
+    enderecosRetirada?: IEndereco[];
+    valorEntregaBase?: string;
+    valorKmAdicional?: string;
+    entregaBaseMts?: string;
+    requiredNearPlaceToConfirmStartRide?: boolean;
+    requiredNearClientToConfirm?: boolean;
+    requiredNearplaceToConfirmReturnRide?: boolean;
+    needCheckToConfirmReturnRide?: boolean;
+    qtdMaxEntregaGroup?: string;
+    maxDistanceDropsToGroup?: string;
+    qlBankAccountId?: ObjectId;
 }
