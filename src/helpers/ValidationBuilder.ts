@@ -68,4 +68,9 @@ export default class ValidationBuilder {
         this.validation.isEmail(this.value, this.message)
         return this;
     }
+
+    minArray(min: number): ValidationBuilder {
+        this.validation.minArray(this.value, min, this.message)
+        return this;
+    }
 }

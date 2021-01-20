@@ -26,6 +26,10 @@ class FnValidacoes {
         return value.trim().length >= size;
     }
 
+    static minArray(value: string, size: number): boolean {
+        return value.length >= size;
+    }
+
     static fixLength(value: string, size: number): boolean {
         return value.trim().length === size;
     }
@@ -87,8 +91,6 @@ class FnValidacoes {
     static email(email: string): boolean {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
     };
-
-
 }
 
 export default FnValidacoes;

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export interface IManager {
-    _id: ObjectId;
+    _id?: ObjectId;
     email: string;
     nome: string;
     senha: string;

@@ -180,6 +180,19 @@ class ValidationContract {
         }
     }
 
+    minArray(value: string, size: number, msg: string): ValidationContract {
+        if(!FnValidacoes.minArray(value, size)){
+            if (msg.split(' ').length > 1) {
+                this.addError(msg);
+            } else {
+                this.addError(
+                    `${msg} deve ter no minimo ${size}.`,
+                );
+            }
+        }
+        return this;
+    }
+
     max(value: number, max: number, msg: string): ValidationContract {
         if (value > max) {
             if (msg.split(' ').length > 1) {

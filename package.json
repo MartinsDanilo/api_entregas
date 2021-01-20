@@ -32,7 +32,8 @@
     "signale": "^1.4.0",
     "throng": "^4.0.0",
     "tsconfig-paths": "^3.9.0",
-    "tsyringe": "^4.3.0"
+    "tsyringe": "^4.3.0",
+    "uuidv4": "^6.2.6"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.1",
